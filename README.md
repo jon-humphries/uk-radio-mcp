@@ -15,6 +15,7 @@ emission?" or "list business radio licences within 15 km of SY1 1AA".
 | `search_licences` | Ofcom WTR | nothing. Filter by frequency, range, emission code, licensee, postcode or lat/lon plus radius |
 | `search_licensee` | Ofcom WTR | nothing |
 | `refresh_register` | Ofcom WTR | nothing. Forces a re-download |
+| `export_whistler` | Ofcom WTR | nothing. Writes a Whistler EZ Scan import CSV (Alpha Tag, Frequency, Mode) for a postcode and radius, optionally limited to counties or channels |
 | `lookup_dmr_id` | RadioID dump | nothing |
 | `radioid_api` | RadioID REST | optional `RADIOID_API_TOKEN` |
 | `repeaterbook_search` | RepeaterBook | `REPEATERBOOK_TOKEN`, `REPEATERBOOK_USER_AGENT` |

@@ -3,7 +3,9 @@ from __future__ import annotations
 
 from mcp.server.fastmcp import FastMCP
 
-from . import catalogue, wtr
+from pathlib import Path
+
+from . import catalogue, export, wtr
 from .geo import resolve_location
 from .sources import radioid, radioreference, repeaterbook
 
@@ -98,6 +100,37 @@ def radioreference_call(method: str, params: dict | None = None) -> dict:
     if not radioreference.configured():
         return {"error": radioreference.missing_message()}
     return {"result": radioreference.call(method, **(params or {}))}
+
+
+@mcp.tool()
+def export_whistler(
+    postcode: str | None = None,
+    lat: float | None = None,
+    lon: float | None = None,
+    radius_km: float = 60.0,
+    counties: list[str] | None = None,
+    freq_min_mhz: float = 400.0,
+    freq_max_mhz: float = 470.0,
+    freq_mhz: list[float] | None = None,
+    output_path: str | None = None,
+) -> dict:
+    """Write a Whistler EZ Scan text-import CSV (Alpha Tag, Frequency, Mode=AUTO) of licensed
+    UK sites from the Ofcom register. Alpha tag is the licensee name cut to 16 characters.
+    Give postcode or lat/lon plus radius_km as the search area. counties (e.g. ['Shropshire',
+    'Telford and Wrekin']) further restricts to those local authorities. freq_mhz limits to
+    specific channels. Default output is ~/Downloads/uk_radio_whistler.csv."""
+    centre = resolve_location(lat, lon, postcode)
+    if centre is None:
+        return {"error": "Provide postcode or lat and lon for the search area."}
+    rows = export.whistler_rows(centre, radius_km, counties, freq_min_mhz, freq_max_mhz, freq_mhz)
+    path = Path(output_path).expanduser() if output_path else Path.home() / "Downloads" / "uk_radio_whistler.csv"
+    export.write_whistler(rows, path)
+    return {
+        "file": str(path), "entries": len(rows),
+        "unique_frequencies": len({m for m, _ in rows}),
+        "register_status": wtr.status(),
+        "note": "Set DG/digital mode to Auto on the scanner after import. Back up the SD card first.",
+    }
 
 
 def main() -> None:
