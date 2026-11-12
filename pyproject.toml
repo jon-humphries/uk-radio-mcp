@@ -1,7 +1,7 @@
 [project]
 name = "uk-radio-mcp"
 version = "0.1.0"
-description = "MCP server for UK radio frequency data: Ofcom WTR, RadioID, plus optional paid sources (RadioReference, RepeaterBook, Broadcastify)"
+description = "MCP server for UK radio frequency data: Ofcom WTR, RadioID, plus optional paid sources (RadioReference, RepeaterBook)"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

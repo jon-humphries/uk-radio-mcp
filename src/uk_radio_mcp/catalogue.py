@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 
-from .sources import broadcastify, radioid, radioreference, repeaterbook
+from .sources import radioid, radioreference, repeaterbook
 
 SOURCES = [
     {
@@ -31,14 +31,6 @@ SOURCES = [
         "enabled": radioreference.configured(),
         "url": "https://www.radioreference.com/account/api/apply",
         "notes": "Strongest for US/Canada; limited UK coverage. Needs the [radioreference] extra.",
-    },
-    {
-        "name": "broadcastify", "cost": "Catalog API $2,500/month; Calls API prepaid metered (min $5)",
-        "api": "REST (docs behind bcfy.io/dev/docs)",
-        "env": ["BROADCASTIFY_API_KEY", "BROADCASTIFY_BASE_URL", "BROADCASTIFY_AUTH_HEADER (optional)"],
-        "enabled": broadcastify.configured(),
-        "url": "https://bcfy.io/dev/apply/",
-        "notes": "Passthrough only; endpoints come from the official docs.",
     },
     {
         "name": "ukafg", "cost": "GBP 5-100/yr", "api": "none (CSV/XLSX/XML exports)", "env": [],

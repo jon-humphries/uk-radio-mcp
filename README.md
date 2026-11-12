@@ -19,7 +19,6 @@ emission?" or "list business radio licences within 15 km of SY1 1AA".
 | `radioid_api` | RadioID REST | optional `RADIOID_API_TOKEN` |
 | `repeaterbook_search` | RepeaterBook | `REPEATERBOOK_TOKEN`, `REPEATERBOOK_USER_AGENT` |
 | `radioreference_call` | RadioReference SOAP | `RADIOREFERENCE_APP_KEY`, `_USERNAME`, `_PASSWORD` |
-| `broadcastify_get` | Broadcastify | `BROADCASTIFY_API_KEY`, `BROADCASTIFY_BASE_URL` |
 
 Postcode lookups use the free [postcodes.io](https://postcodes.io) service.
 
@@ -85,12 +84,6 @@ is used and the result says so.
 - WSDL: `https://api.radioreference.com/soap2/?wsdl&v=latest&s=rpc`. Methods include `getCountyInfo(ctid)`, `getZipcodeInfo`, `getUserData`, `getCountyFreqsByTag`.
 - Coverage is strongest in the US and Canada. UK data is limited.
 - Install with `pip install -e ".[radioreference]"`.
-
-**Broadcastify** (Developer Program, application reviewed)
-- Apply: https://bcfy.io/dev/apply/ . Docs: https://bcfy.io/dev/docs/
-- Live Audio Feed Catalog API: $2,500 per month. Calls Client API: prepaid, metered, $5 minimum.
-- `BROADCASTIFY_API_KEY`, `BROADCASTIFY_BASE_URL`, optional `BROADCASTIFY_AUTH_HEADER`
-- The public overview pages do not give endpoint paths or the auth header, and the docs site blocked automated access when this was written. `broadcastify_get` is therefore a passthrough: you give it a path from the official docs. It has not been tested against the live API.
 
 **RadioID** (free) can take `RADIOID_API_TOKEN` (sent as `X-API-Token`). Without it, requests are anonymous. Its terms forbid mirroring, competing projects and commercial use.
 

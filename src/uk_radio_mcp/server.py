@@ -5,7 +5,7 @@ from mcp.server.fastmcp import FastMCP
 
 from . import catalogue, wtr
 from .geo import resolve_location
-from .sources import broadcastify, radioid, radioreference, repeaterbook
+from .sources import radioid, radioreference, repeaterbook
 
 mcp = FastMCP("uk-radio")
 
@@ -98,15 +98,6 @@ def radioreference_call(method: str, params: dict | None = None) -> dict:
     if not radioreference.configured():
         return {"error": radioreference.missing_message()}
     return {"result": radioreference.call(method, **(params or {}))}
-
-
-@mcp.tool()
-def broadcastify_get(path: str, params: dict | None = None) -> dict:
-    """Authenticated GET against the Broadcastify API using a path from its official docs.
-    Needs BROADCASTIFY_API_KEY and BROADCASTIFY_BASE_URL."""
-    if not broadcastify.configured():
-        return {"error": broadcastify.missing_message()}
-    return broadcastify.get(path, params)
 
 
 def main() -> None:
